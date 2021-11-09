@@ -13,7 +13,7 @@ describe "testParcelas" {
 		parcela1.plantar(soja1)
 		parcela1.plantar(soja1)
 		parcela1.plantar(soja1)
-		assert.that(parcela1.tieneComplicaciones())
-		
+		assert.notThat(parcela1.tieneComplicaciones())
+		parcela1.plantar(soja1)
 	}
 }

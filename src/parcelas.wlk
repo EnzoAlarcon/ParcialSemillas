@@ -15,7 +15,7 @@ class Parcela {
 	}
 	
 	method tieneComplicaciones() {
-		return plantas.all({ p => p.toleranciaAlSol() > horasAlSol })
+		return not plantas.all({ p => p.toleranciaAlSol() > horasAlSol })
 	}
 	
 	method hayLugarParaPlantar() {
@@ -23,15 +23,28 @@ class Parcela {
 	}
 	
 	method plantaToleraElSolDeParcela(planta) {
-		return (planta.toleranciaAlSol() - horasAlSol).abs() <= 2
+		return planta.toleranciaAlSol() > horasAlSol
 	}
 	
 	method plantar(planta) {
-		if (self.hayLugarParaPlantar() and self.plantaToleraElSolDeParcela(planta)) {plantas.add(planta)}
+		if (self.hayLugarParaPlantar() or self.plantaToleraElSolDeParcela(planta)) {plantas.add(planta)}
 		else {self.error("La planta no puede ser plantada en esta parcela")}
 	}
 	
+	method esUnaParcelaIdeal() {
+		return plantas.all({ p => p.esParcelaIdeal(self) })
+	}
 	
+	method esParcelaEcologicaPara(planta) {
+		return not self.tieneComplicaciones() and planta.esParcelaIdeal(self)
+	}
 	
+	method esParcelaIndustrialPara(planta) {
+		return self.cantidadMaxPlantas() <= 2 and planta.esFuerte()
+	}
+	
+	method plantasEnParcela() {
+		return plantas.size()
+	}
 }
 

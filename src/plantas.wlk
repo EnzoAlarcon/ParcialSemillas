@@ -28,6 +28,10 @@ class Menta inherits Planta {
 		return altura * 3
 	}
 	
+	method esParcelaIdeal(parcela) {
+		return parcela.superficie() > 6
+	}
+	
 }
 
 class Soja inherits Planta {
@@ -49,6 +53,10 @@ class Soja inherits Planta {
 	method espacioQueOcupa() {
 		return altura / 2
 	}
+	
+	method esParcelaIdeal(parcela) {
+		return parcela.horasAlSol() == self.toleranciaAlSol()
+	}
 }
 
 class Quinoa inherits Planta {
@@ -60,6 +68,11 @@ class Quinoa inherits Planta {
 	override method daNuevasSemillas() {
 		return super() or anioDeObtencion < 2005
 	}
+	
+	method esParcelaIdeal(parcela) {
+		return parcela.plantas().all({ p => p.altura() < 1.5 })
+	}
+	
 	
 }
 
@@ -74,6 +87,10 @@ class Hierbabuena inherits Menta {
 	override method espacioQueOcupa() {
 		return super() * 2
 	}
+	
+	override method esParcelaIdeal(parcela) {
+		return parcela.cantidadMaxPlantas() == 1
+	} 
 }
 
 
