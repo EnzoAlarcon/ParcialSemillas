@@ -17,6 +17,6 @@ object inta {
 	}
 	
 	method parcelaMasAutosustentable() {
-		return parcelas.map({ p => p.plantasEnParcela() > 4 })
+		return parcelas.filter({ p => p.plantasEnParcela() > 4 }).max({ p => p.plantasBienAsociadas() })
 	}
 }

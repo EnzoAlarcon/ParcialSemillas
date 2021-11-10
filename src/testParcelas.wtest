@@ -15,5 +15,6 @@ describe "testParcelas" {
 		parcela1.plantar(soja1)
 		assert.notThat(parcela1.tieneComplicaciones())
 		parcela1.plantar(soja1)
+		// Error por plantar de más
 	}
 }

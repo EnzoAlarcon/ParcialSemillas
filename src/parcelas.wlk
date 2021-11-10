@@ -35,16 +35,29 @@ class Parcela {
 		return plantas.all({ p => p.esParcelaIdeal(self) })
 	}
 	
-	method esParcelaEcologicaPara(planta) {
-		return not self.tieneComplicaciones() and planta.esParcelaIdeal(self)
-	}
-	
-	method esParcelaIndustrialPara(planta) {
-		return self.cantidadMaxPlantas() <= 2 and planta.esFuerte()
-	}
-	
 	method plantasEnParcela() {
 		return plantas.size()
+	}
+	
+	method buenaAsociacion(planta)
+	
+	method plantasBienAsociadas() {
+		return plantas.count({ p => self.buenaAsociacion(p) })
+	}
+}
+
+
+class ParcelaEcologica inherits Parcela {
+	
+	override method buenaAsociacion(planta) {
+		return not self.tieneComplicaciones() and planta.esParcelaIdeal(self)
+	}
+}
+
+class ParcelaIndustrial inherits Parcela {
+	
+	override method buenaAsociacion(planta) {
+		return self.cantidadMaxPlantas() <= 2 and planta.esFuerte()
 	}
 }
 
